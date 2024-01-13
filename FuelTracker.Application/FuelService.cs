@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FuelTracker.Domain;
+﻿using FuelTracker.Domain;
 using FuelTracker.Infrastructure;
 
 namespace FuelTracker.Application
@@ -10,6 +9,8 @@ namespace FuelTracker.Application
 
         public FuelService(FuelRepository fuelRepository)
         {
+            ArgumentNullException.ThrowIfNull(fuelRepository);
+            
             _fuelRepository = fuelRepository;
         }
 
@@ -19,7 +20,7 @@ namespace FuelTracker.Application
             _fuelRepository.AddFuelRecord(record);
         }
 
-        public List<FuelRecord> GetFuelHistory(string vehicleNumber)
+        public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber)
         {
             // Additional logic if needed
             return _fuelRepository.GetFuelHistory(vehicleNumber);

@@ -18,11 +18,10 @@ namespace FuelTracker.Infrastructure
             _dbContext.SaveChanges();
         }
 
-        public List<FuelRecord> GetFuelHistory(string vehicleNumber)
+        public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber)
         {
             return _dbContext.FuelRecords
-                .Where(r => r.VehicleNumber == vehicleNumber)
-                .ToList();
+                .Where(r => r.VehicleNumber == vehicleNumber);
         }
 
         public void UpdateFuelRecord(FuelRecord record)

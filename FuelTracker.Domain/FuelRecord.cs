@@ -2,6 +2,9 @@
 
 namespace FuelTracker.Domain
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FuelRecord
     {
         [Key]

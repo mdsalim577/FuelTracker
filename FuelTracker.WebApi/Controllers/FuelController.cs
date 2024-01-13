@@ -10,6 +10,8 @@ public class FuelController : ControllerBase
 
     public FuelController(IFuelService fuelService)
     {
+        ArgumentNullException.ThrowIfNull(fuelService);
+        
         _fuelService = fuelService;
     }
 
