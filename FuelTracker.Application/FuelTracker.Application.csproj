@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FuelTracker.Domain\FuelTracker.Domain.csproj" />
+      <ProjectReference Include="..\FuelTracker.Infrastructure\FuelTracker.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

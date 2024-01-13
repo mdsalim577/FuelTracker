@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FuelTracker.Application;
+using FuelTracker.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 [Route("api/v1/vehicle")]
 [ApiController]
