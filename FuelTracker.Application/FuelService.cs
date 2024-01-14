@@ -3,6 +3,7 @@ using FuelTracker.Infrastructure;
 
 namespace FuelTracker.Application
 {
+
     public class FuelService : IFuelService
     {
         private readonly FuelRepository _fuelRepository;
