@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dotnet watch --no-hot-reload --project FuelTracker.WebApi/FuelTracker.WebApi.csproj run

@@ -16,8 +16,13 @@ public class FuelController : ControllerBase
     }
 
     [HttpPost("/{vehicleNumber}")]
-    public IActionResult AddFuelRecord([FromBody] FuelRecord record)
+    public IActionResult AddFuelRecord([FromBody] FuelRecord record, string vehicleNumber)
     {
+        if (record.Date == default || record.Date == DateTime.MinValue || record.Date == DateTime.MaxValue)
+        {
+            record.Date = DateTime.UtcNow;
+        }
+        
         _fuelService.AddFuelRecord(record);
         return Ok("Record added successfully");
     }

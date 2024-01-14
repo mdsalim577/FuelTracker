@@ -35,7 +35,7 @@ namespace FuelTracker.WebApi
 
             // Configure PostgreSQL with Entity Framework Core
             services.AddDbContext<FuelDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
+                options.UseNpgsql("Host=localhost; Port=5433; Database=your_database_name; Username=postgres; Password=811911;"));
 
             // Configure Dependency Injection
             services.AddTransient<FuelRepository>();
