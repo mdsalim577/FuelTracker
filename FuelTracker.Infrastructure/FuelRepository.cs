@@ -39,5 +39,11 @@ namespace FuelTracker.Infrastructure
                 _dbContext.SaveChanges();
             }
         }
+        
+        public List<FuelRecord> GetAllFuelRecords()
+        {
+            // Assuming you have a DbSet property for FuelRecords in FuelDbContext
+            return _dbContext.FuelRecords.ToList();
+        }
   }
 }

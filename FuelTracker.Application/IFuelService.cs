@@ -12,5 +12,7 @@ namespace FuelTracker.Application
         void UpdateFuelRecord(FuelRecord record);
         
         void DeleteFuelRecord(int recordId);
+        
+        List<FuelRecord> GetAllFuelRecords();
     }
 }
