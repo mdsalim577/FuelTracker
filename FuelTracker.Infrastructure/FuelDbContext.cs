@@ -11,5 +11,14 @@ namespace FuelTracker.Infrastructure
             : base(options)
         {
         }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           // Configure FuelRecord entity
+            modelBuilder.Entity<FuelRecord>().ToTable("FuelRecords");
+            modelBuilder.Entity<FuelRecord>().Property(fr => fr.FuelType)
+                .IsRequired()
+                .HasConversion<string>(); // Convert enum to string in the database
+        }
     }
 }
