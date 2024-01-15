@@ -1,18 +1,16 @@
-using System.Collections.Generic;
 using FuelTracker.Domain;
 
-namespace FuelTracker.Application
-{
-    public interface IFuelService
-    {
-        void AddFuelRecord(FuelRecord record);
+namespace FuelTracker.Application;
 
-        IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber);
+public interface IFuelService
+{
+    void AddFuelRecord(FuelRecord record);
+
+    IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber);
         
-        void UpdateFuelRecord(FuelRecord record);
+    void UpdateFuelRecord(FuelRecord record);
         
-        void DeleteFuelRecord(int recordId);
+    void DeleteFuelRecord(int recordId);
         
-        List<FuelRecord> GetAllFuelRecords();
-    }
+    List<FuelRecord> GetAllFuelRecords();
 }

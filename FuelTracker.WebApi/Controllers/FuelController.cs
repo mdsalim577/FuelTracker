@@ -1,6 +1,7 @@
 ﻿using FuelTracker.Application;
 using FuelTracker.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FuelTracker.WebApi.Controllers;
 
@@ -9,15 +10,24 @@ namespace FuelTracker.WebApi.Controllers;
 public class FuelController : ControllerBase
 {
     private readonly IFuelService _fuelService;
+    private readonly ILogger<FuelController> _logger;
 
-    public FuelController(IFuelService fuelService)
+    public FuelController(
+        IFuelService fuelService
+        , ILogger<FuelController> logger)
     {
-        _fuelService = fuelService ?? throw new ArgumentNullException(nameof(fuelService));
+        ArgumentNullException.ThrowIfNull(fuelService);
+        ArgumentNullException.ThrowIfNull(logger);
+        
+        _fuelService = fuelService;
+        _logger = logger;
     }
 
     [HttpPost("{vehicleNumber}")]
     public IActionResult AddFuelRecord([FromBody] FuelRecord record, string vehicleNumber)
     {
+        _logger.LogDebug("Hitting api to initiate adding fuel record");
+        
         if (record.Date == default || record.Date == DateTime.MinValue || record.Date == DateTime.MaxValue)
         {
             record.Date = DateTime.UtcNow;
@@ -25,6 +35,7 @@ public class FuelController : ControllerBase
 
         record.VehicleNumber = vehicleNumber;
         _fuelService.AddFuelRecord(record);
+        
         return Ok("Record added successfully");
     }
 
