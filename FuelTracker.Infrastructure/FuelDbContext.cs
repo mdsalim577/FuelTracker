@@ -14,11 +14,30 @@ namespace FuelTracker.Infrastructure
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // Configure FuelRecord entity
-            modelBuilder.Entity<FuelRecord>().ToTable("FuelRecords");
-            modelBuilder.Entity<FuelRecord>().Property(fr => fr.FuelType)
-                .IsRequired()
-                .HasConversion<string>(); // Convert enum to string in the database
+            // Define the table and its properties
+            modelBuilder.Entity<FuelRecord>(entity =>
+            {
+                entity.ToTable("FuelRecords");
+
+                entity.HasKey(e => e.Id); // Primary Key
+
+                entity.Property(e => e.VehicleNumber)
+                    .IsRequired();
+
+                entity.Property(e => e.Date)
+                    .IsRequired();
+
+                entity.Property(e => e.FuelAmount)
+                    .IsRequired();
+
+                entity.Property(e => e.Price)
+                    .IsRequired();
+
+                entity.Property(e => e.Name);
+
+                // If FuelType is an enum, EF will handle it as an int by default
+                entity.Property(e => e.FuelType);
+            });
         }
     }
 }

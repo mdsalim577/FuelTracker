@@ -46,7 +46,7 @@ public class Startup
         services.AddControllers();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FuelDbContext dbContext)
     {
         if (env.IsDevelopment())
         {
@@ -75,5 +75,8 @@ public class Startup
         {
             endpoints.MapControllers();
         });
+        
+        dbContext.Database.EnsureCreated();
+
     }
 }
