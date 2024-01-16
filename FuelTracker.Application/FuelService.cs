@@ -19,9 +19,11 @@ public class FuelService : IFuelService
         _fuelRepository.AddFuelRecord(record);
     }
 
-    public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber)
+    public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber, int page = 1, int pageSize = 10)
     {
-        return _fuelRepository.GetFuelHistory(vehicleNumber);
+        return _fuelRepository.GetFuelHistory(vehicleNumber)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize);
     }
 
     public void UpdateFuelRecord(FuelRecord record)
@@ -34,8 +36,10 @@ public class FuelService : IFuelService
         _fuelRepository.DeleteFuelRecord(recordId);
     }
 
-    public List<FuelRecord> GetAllFuelRecords()
+    public IEnumerable<FuelRecord> GetAllFuelRecords(int page = 1, int pageSize = 10)
     {
-        return _fuelRepository.GetAllFuelRecords();
+        return _fuelRepository.GetAllFuelRecords()
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize);
     }
 }

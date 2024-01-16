@@ -18,10 +18,14 @@ public class FuelRepository
         _dbContext.SaveChanges();
     }
 
-    public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber)
+    public IEnumerable<FuelRecord> GetFuelHistory(string vehicleNumber, int page = 1, int pageSize = 10)
     {
         return _dbContext.FuelRecords
-            .Where(r => r.VehicleNumber == vehicleNumber);
+            .Where(record => record.VehicleNumber == vehicleNumber)
+            .OrderByDescending(record => record.Date)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
     }
 
     public void UpdateFuelRecord(FuelRecord record)
@@ -40,9 +44,12 @@ public class FuelRepository
         }
     }
         
-    public List<FuelRecord> GetAllFuelRecords()
+    public IEnumerable<FuelRecord> GetAllFuelRecords(int page = 1, int pageSize = 10)
     {
-        // Assuming you have a DbSet property for FuelRecords in FuelDbContext
-        return _dbContext.FuelRecords.ToList();
+        return _dbContext.FuelRecords
+            .OrderByDescending(record => record.Date)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
     }
 }

@@ -22,6 +22,20 @@ public class FuelController : ControllerBase
         _fuelService = fuelService;
         _logger = logger;
     }
+    
+    [HttpGet("all")]
+    public IActionResult GetAllFuelRecords([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var allRecords = _fuelService.GetAllFuelRecords(page, pageSize);
+        return Ok(allRecords);
+    }
+    
+    [HttpGet("{vehicleNumber}/history")]
+    public IActionResult GetFuelHistory(string vehicleNumber, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var history = _fuelService.GetFuelHistory(vehicleNumber, page, pageSize);
+        return Ok(history);
+    }
 
     [HttpPost("{vehicleNumber}")]
     public IActionResult AddFuelRecord([FromBody] FuelRecord record, string vehicleNumber)
@@ -39,13 +53,6 @@ public class FuelController : ControllerBase
         return Ok("Record added successfully");
     }
 
-    [HttpGet("{vehicleNumber}/history")]
-    public IActionResult GetFuelHistory(string vehicleNumber)
-    {
-        var history = _fuelService.GetFuelHistory(vehicleNumber);
-        return Ok(history);
-    }
-
     [HttpPut("{vehicleNumber}/correct")]
     public IActionResult UpdateFuelRecord([FromBody] FuelRecord record, string vehicleNumber)
     {
@@ -59,12 +66,5 @@ public class FuelController : ControllerBase
     {
         _fuelService.DeleteFuelRecord(recordId);
         return Ok("Record deleted successfully");
-    }
-
-    [HttpGet("all")]
-    public IActionResult GetAllFuelRecords()
-    {
-        var allRecords = _fuelService.GetAllFuelRecords();
-        return Ok(allRecords);
     }
 }
