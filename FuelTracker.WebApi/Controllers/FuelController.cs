@@ -47,6 +47,7 @@ public class FuelController : ControllerBase
             record.Date = DateTime.UtcNow;
         }
 
+        record.Id = Guid.NewGuid();
         record.VehicleNumber = vehicleNumber;
         _fuelService.AddFuelRecord(record);
         

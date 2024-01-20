@@ -33,10 +33,10 @@ namespace FuelTracker.Infrastructure
                 entity.Property(e => e.Price)
                     .IsRequired();
 
-                entity.Property(e => e.Name);
+                entity.Property(e => e.DriverName);
 
-                // If FuelType is an enum, EF will handle it as an int by default
-                entity.Property(e => e.FuelType);
+                entity.Property(e => e.FuelType)
+                    .IsRequired();
             });
         }
     }
