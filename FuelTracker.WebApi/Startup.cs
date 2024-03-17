@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FuelTracker.Infrastructure;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace FuelTracker.WebApi;
 
@@ -33,7 +35,7 @@ public class Startup
             });
         });
 
-        // Configure PostgreSQL with Entity Framework Core
+        // Configure PostgresSQL with Entity Framework Core
         services.AddDbContext<FuelDbContext>(options =>
             options.UseNpgsql("Host=localhost; Port=5433; Database=fueltracker; Username=postgres; Password=811911;"));
 
@@ -46,8 +48,22 @@ public class Startup
         services.AddControllers();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FuelDbContext dbContext)
+    public void Configure(
+        IApplicationBuilder app
+        , IWebHostEnvironment env
+        , ILoggerFactory loggerFactory
+        , FuelDbContext dbContext
+        )
     {
+        const string seqServerUrl = "http://localhost:5341";
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Seq(seqServerUrl)
+            .CreateLogger();
+
+        loggerFactory.AddSerilog();
+        
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();

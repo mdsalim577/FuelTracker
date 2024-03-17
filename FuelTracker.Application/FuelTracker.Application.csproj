@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -9,6 +9,11 @@
     <ItemGroup>
       <ProjectReference Include="..\FuelTracker.Domain\FuelTracker.Domain.csproj" />
       <ProjectReference Include="..\FuelTracker.Infrastructure\FuelTracker.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+      <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

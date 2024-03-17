@@ -28,10 +28,25 @@ public class FuelRepository
             .ToList();
     }
 
-    public void UpdateFuelRecord(FuelRecord record)
+    public void UpdateFuelRecord(FuelRecord updatedRecord)
     {
-        _dbContext.Entry(record).State = EntityState.Modified;
-        _dbContext.SaveChanges();
+        var existingRecord = _dbContext.FuelRecords.FirstOrDefault(fr => fr.Id == updatedRecord.Id);
+
+        if (existingRecord != null)
+        {
+            // Map only the properties you want to allow updating. This example updates all, but you can exclude some if necessary.
+            _dbContext.Entry(existingRecord).CurrentValues.SetValues(updatedRecord);
+
+            // For properties not included in SetValues, you can manually update them if needed
+            // Example: existingRecord.SomeProperty = updatedRecord.SomeProperty;
+
+            _dbContext.SaveChanges();
+        }
+        else
+        {
+            // Handle the case where the record does not exist. You could throw an exception or handle it according to your application needs.
+            throw new ArgumentException("Record not found", nameof(updatedRecord.Id));
+        }
     }
 
     public void DeleteFuelRecord(int recordId)
